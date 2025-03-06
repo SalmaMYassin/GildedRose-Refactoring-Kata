@@ -3,6 +3,7 @@ package com.gildedrose.factory;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.gildedrose.model.ItemType;
 import com.gildedrose.updater.AgedBrieUpdater;
 import com.gildedrose.updater.BackstagePassUpdater;
 import com.gildedrose.updater.ConjuredItemUpdater;
@@ -11,17 +12,17 @@ import com.gildedrose.updater.NormalItemUpdater;
 import com.gildedrose.updater.SulfurasUpdater;
 
 public class ItemUpdaterFactory {
-    private static final Map<String, ItemUpdater> UPDATERS = new HashMap<>();
-    
+
+    private static final Map<ItemType, ItemUpdater> UPDATERS = new HashMap<>();
+
     static {
-        UPDATERS.put("Aged Brie", new AgedBrieUpdater());
-        UPDATERS.put("Backstage passes to a TAFKAL80ETC concert", new BackstagePassUpdater());
-        UPDATERS.put("Sulfuras, Hand of Ragnaros", new SulfurasUpdater());
-        UPDATERS.put("Conjured Item", new ConjuredItemUpdater());
+        UPDATERS.put(ItemType.AGED_BRIE, new AgedBrieUpdater());
+        UPDATERS.put(ItemType.BACKSTAGE_PASSES, new BackstagePassUpdater());
+        UPDATERS.put(ItemType.SULFURAS, new SulfurasUpdater());
+        UPDATERS.put(ItemType.CONJURED, new ConjuredItemUpdater());
     }
 
-    public static ItemUpdater getUpdater(String type) {
+    public static ItemUpdater getUpdater(ItemType type) {
         return UPDATERS.getOrDefault(type, new NormalItemUpdater());
     }
 }
-
