@@ -21,19 +21,19 @@ class GildedRose {
 
     public void updateNormalItem(Item item){
         item.sellIn--;
-        item.quality -= (item.sellIn < 0) ? 2:1; 
+        item.quality -= isExpired(item.sellIn) ? 2:1; 
         item.quality = Math.max(item.quality, 0);
     }
 
     public void updateAgedBrie(Item item){
         item.sellIn--;
-        item.quality += (item.sellIn < 0) ? 2:1;
+        item.quality += isExpired(item.sellIn) ? 2:1;
         item.quality = Math.min(item.quality, 50);
     }
 
     public void updateBackstagePasses(Item item){
         item.sellIn--;
-        if (item.sellIn < 0) {
+        if (isExpired(item.sellIn)) {
             item.quality = 0;
         } else if (item.sellIn < 5) {
             item.quality += 3;
@@ -47,7 +47,11 @@ class GildedRose {
 
     public void updateConjured(Item item){
         item.sellIn--;
-        item.quality -= (item.sellIn < 0) ? 4:2; 
+        item.quality -= isExpired(item.sellIn) ? 4:2; 
         item.quality = Math.max(item.quality, 0);
+    }
+
+    public Boolean isExpired(int sellIn){
+        return (sellIn < 0);
     }
 }
