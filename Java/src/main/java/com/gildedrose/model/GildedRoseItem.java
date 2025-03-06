@@ -1,8 +1,10 @@
 package com.gildedrose.model;
 
 public class GildedRoseItem {
-    
-private final Item item; // Using composition - to wrap the Item object (since we can't change the Item class directly)
+
+    private final Item item; // Using composition - to wrap the Item object (since we can't change the Item class directly)
+    private static final int MAX_QUALITY = 50;
+    private static final int MIN_QUALITY = 0;
 
     public GildedRoseItem(Item item) {
         this.item = item;
@@ -25,11 +27,11 @@ private final Item item; // Using composition - to wrap the Item object (since w
     }
 
     public void increaseQuality(int amount) {
-        item.quality = Math.min(item.quality + amount, 50);
+        item.quality = Math.min(item.quality + amount, MAX_QUALITY);
     }
 
     public void decreaseQuality(int amount) {
-        item.quality = Math.max(item.quality - amount, 0);
+        item.quality = Math.max(item.quality - amount, MIN_QUALITY);
     }
 
     public void setQualityToZero() {
