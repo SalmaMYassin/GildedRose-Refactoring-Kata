@@ -2,7 +2,9 @@ package com.gildedrose;
 
 class GildedRose {
     Item[] items;
-
+    private static final int MAX_QUALITY = 50;
+    private static final int MIN_QUALITY = 0;
+    
     public GildedRose(Item[] items) {
         this.items = items;
     }
@@ -19,16 +21,16 @@ class GildedRose {
         }
     }
 
-    public void updateNormalItem(Item item){
+       public void updateNormalItem(Item item){
         item.sellIn--;
         item.quality -= isExpired(item.sellIn) ? 2:1; 
-        item.quality = Math.max(item.quality, 0);
+        item.quality = Math.max(item.quality, MIN_QUALITY);
     }
 
     public void updateAgedBrie(Item item){
         item.sellIn--;
         item.quality += isExpired(item.sellIn) ? 2:1;
-        item.quality = Math.min(item.quality, 50);
+        item.quality = Math.min(item.quality, MAX_QUALITY);
     }
 
     public void updateBackstagePasses(Item item){
@@ -42,13 +44,13 @@ class GildedRose {
         } else {
             item.quality += 1;
         }
-        item.quality = Math.min(item.quality, 50);
+        item.quality = Math.min(item.quality, MAX_QUALITY);
     }
 
     public void updateConjured(Item item){
         item.sellIn--;
         item.quality -= isExpired(item.sellIn) ? 4:2; 
-        item.quality = Math.max(item.quality, 0);
+        item.quality = Math.max(item.quality, MIN_QUALITY);
     }
 
     public Boolean isExpired(int sellIn){
