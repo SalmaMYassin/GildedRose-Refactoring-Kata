@@ -12,6 +12,7 @@ class GildedRose {
             switch(item.name){
                 case "Aged Brie": updateAgedBrie(item); break;
                 case "Backstage passes to a TAFKAL80ETC concert": updateBackstagePasses(item); break;
+                case "Conjured Item": updateConjured(item); break;
                 case "Sulfuras, Hand of Ragnaros": break;
                 default: updateNormalItem(item); break;
             }
@@ -42,5 +43,11 @@ class GildedRose {
             item.quality += 1;
         }
         item.quality = Math.min(item.quality, 50);
+    }
+
+    public void updateConjured(Item item){
+        item.sellIn--;
+        item.quality -= (item.sellIn < 0) ? 4:2; 
+        item.quality = Math.max(item.quality, 0);
     }
 }
