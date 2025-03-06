@@ -1,7 +1,7 @@
 package com.gildedrose.updater;
 
-import com.gildedrose.model.Item;
+import com.gildedrose.model.GildedRoseItem;
 
 public interface ItemUpdater {
-    void update(Item item);
+    void update(GildedRoseItem item);
 }

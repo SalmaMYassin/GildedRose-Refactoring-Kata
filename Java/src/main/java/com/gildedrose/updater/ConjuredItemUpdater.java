@@ -1,14 +1,12 @@
 package com.gildedrose.updater;
 
-import com.gildedrose.model.Item;
+import com.gildedrose.model.GildedRoseItem;
 
 public class ConjuredItemUpdater implements ItemUpdater{
 
     @Override
-    public void update(Item item) {
-        item.sellIn--;
-        item.quality -= (item.sellIn<0) ? 4:2; 
-        item.quality = Math.max(item.quality, 0);
-    }
-    
+    public void update(GildedRoseItem item) {
+        item.decreaseSellIn();
+        item.decreaseQuality(item.isExpired() ? 4 : 2);
+    } 
 }

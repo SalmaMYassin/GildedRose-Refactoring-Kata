@@ -1,13 +1,12 @@
 package com.gildedrose.updater;
 
-import com.gildedrose.model.Item;
+import com.gildedrose.model.GildedRoseItem;
 
 public class AgedBrieUpdater implements ItemUpdater{
 
     @Override
-    public void update(Item item) {
-        item.sellIn--;
-        item.quality += (item.sellIn < 0) ? 2:1;
-        item.quality = Math.min(item.quality, 50);
+    public void update(GildedRoseItem item) {
+        item.decreaseSellIn();
+        item.increaseQuality(item.isExpired() ? 2 : 1);
     }
 }

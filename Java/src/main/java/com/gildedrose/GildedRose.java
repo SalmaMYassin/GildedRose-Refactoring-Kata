@@ -1,6 +1,7 @@
 package com.gildedrose;
 
 import com.gildedrose.factory.ItemUpdaterFactory;
+import com.gildedrose.model.GildedRoseItem;
 import com.gildedrose.model.Item;
 
 class GildedRose {
@@ -11,7 +12,8 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            ItemUpdaterFactory.getUpdater(item.name).update(item);
+            GildedRoseItem gildedRoseItem = new GildedRoseItem(item);
+            ItemUpdaterFactory.getUpdater(gildedRoseItem.getName()).update(gildedRoseItem);
         }
     }
 
