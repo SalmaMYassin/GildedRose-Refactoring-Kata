@@ -9,49 +9,38 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            if (!item.name.equals("Aged Brie") && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (item.quality > 0) {
-                    if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                        item.quality = item.quality - 1;
-                    }
-                }
-            } else {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                    if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
-                        }
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
-                        }
-                    }
-                }
-            }
-            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                item.sellIn = item.sellIn - 1;
-            }
-            if (item.sellIn < 0) {
-                if (!item.name.equals("Aged Brie")) {
-                    if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (item.quality > 0) {
-                            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                                item.quality = item.quality - 1;
-                            }
-                        }
-                    } else {
-                        item.quality = item.quality - item.quality;
-                    }
-                } else {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                    }
-                }
+            switch(item.name){
+                case "Aged Brie": updateAgedBrie(item); break;
+                case "Backstage passes to a TAFKAL80ETC concert": updateBackstagePasses(item); break;
+                case "Sulfuras, Hand of Ragnaros": break;
+                default: updateNormalItem(item); break;
             }
         }
+    }
+
+    public void updateNormalItem(Item item){
+        item.sellIn--;
+        item.quality -= (item.sellIn < 0) ? 2:1; 
+        item.quality = Math.max(item.quality, 0);
+    }
+
+    public void updateAgedBrie(Item item){
+        item.sellIn--;
+        item.quality += (item.sellIn < 0) ? 2:1;
+        item.quality = Math.min(item.quality, 50);
+    }
+
+    public void updateBackstagePasses(Item item){
+        item.sellIn--;
+        if (item.sellIn < 0) {
+            item.quality = 0;
+        } else if (item.sellIn < 5) {
+            item.quality += 3;
+        } else if (item.sellIn < 10) {
+            item.quality += 2;
+        } else {
+            item.quality += 1;
+        }
+        item.quality = Math.min(item.quality, 50);
     }
 }
